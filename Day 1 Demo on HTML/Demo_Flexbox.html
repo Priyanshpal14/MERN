@@ -1,0 +1,49 @@
+<!--Flexbox is used when we want to create a respomnsive layout that adapts to -->
+<!-- Steps to create a Flexbox layout: -->
+ <!--
+ 1. Set the display property of the container to "flex".
+ 2. Use flex-direction to define the direction of the flex items (row or column).
+ 3. Apply justify-content to align items along the main axis.
+ 4. Use align-items to align items along the cross axis.
+ 5. Utilize flex-wrap to control item wrapping within the container.-->
+
+<!DOCTYPE html>
+<html lang="en">    
+<head>
+    <body>
+        <h1 style="text-align:center;">Flexbox Demo</h1>
+    <p>This is a demonstration of CSS Flexbox layout. The container below uses Flexbox to arrange its items responsively.</p>   
+    </body>
+    <title>Flexbox Demo</title>
+    <style>
+        .flex-container {
+            display: flex;
+            flex-direction: row; /* Change to column for vertical layout */
+            justify-content: space-around; /* Align items horizontally */
+            align-items: center; /* Align items vertically */
+            height: 200px   ; /* Set a height for the container */
+            background-color: #00008B;
+            flex-wrap: wrap; /* Allow items to wrap to the next line */
+            border: 2px solid #000;
+            padding: 10px;
+        }
+        .flex-item {
+            background-color: #4CAF50;
+            color: white;
+            margin: 10px;
+            padding: 20px;
+            font-size: 20px;
+            text-align: center;
+            flex: 1 1 100px; /* Grow, shrink, basis */
+        }
+    </style>
+
+    <div class="flex-container">
+        <div class="flex-item">Item 1</div>
+        <div class="flex-item">Item 2</div>
+        <div class="flex-item">Item 3</div>
+        <div class="flex-item">Item 4</div>
+        <div class="flex-item">Item 5</div>
+    </div>
+</head>
+<body>

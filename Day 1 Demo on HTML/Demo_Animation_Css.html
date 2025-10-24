@@ -1,0 +1,46 @@
+<!-- Basic Animation using CSS with following steps  -->
+<!--1. Define the keyframes for the animation using @keyframes rule.
+    2. Set the animation properties on the element you want to animate.
+    3. Customize the animation duration, timing function, delay, iteration count, and direction as needed. -->
+
+<!DOCTYPE html>
+<html lang="en">  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Animation Demo</title>
+    </head>
+<body>
+    <!--Animation Box CSS-->
+    <h1 style="text-align:center;">CSS Animation Demo</h1>
+    <p>This is a demonstration of CSS animations. The box below will animate using keyframes.</p>
+    <div class="animated-box"></div>
+    <style>
+        .animated-box {
+            width: 100px;
+            height: 100px;
+            background-color: #4CAF50;
+            margin: 50px auto;
+            animation: moveAndRotate 4s infinite alternate;
+        }
+
+        @keyframes moveAndRotate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                background-color: #4CAF50;
+            }
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+                background-color: #FF5733;
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+                background-color: #4CAF50;
+            }
+        }       
+    </style>
+</body>
+</html>
+
+
+
