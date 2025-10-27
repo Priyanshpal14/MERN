@@ -1,0 +1,210 @@
+<!-- Implementing Promises in ES6 -->
+<!-- Promises are used to handle asynchronous(ex  API calls, file reading) operations in JavaScript. -->
+<!-- API Call Example step by step from a perspective of restaurant -->
+<!-- Step 1: You order something to eat Waiter takes your order -->
+<!-- Step 2: Kitchen prepares your food (this takes time) -->
+<!-- Step 3: Once food is ready, waiter brings it to your table -->
+<!-- here Asynchronous behavior is simulated using Promises -->
+<!-- English meaning of Asynchronous: Not occurring at the same time ex in  a e commerce website  following things are asynchronous: -->
+<!-- 1. Loading products -->
+<!-- 2. Fetching user data -->
+<!-- 3. Processing payments -->
+<!-- hence we need timers to simulate delays -->
+<!-- below things are synchronous:  Means they happen in a sequence -->
+<!-- 1. Rendering UI components -->
+<!-- 2. Handling user input -->
+<!-- 3. Updating the DOM -->
+
+<!DOCTYPE html>
+<html lang="en">    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Demo</title>
+</head>
+<body>
+    <script>
+//         // Simulating API Call with Promises
+//         function orderFood() { 
+//             return new Promise((resolve, reject) => {
+//                 // resolve  and reject are callback functions that we can call based on the outcome of the asynchronous operation
+//                 // Simulating a delay for food preparation
+//                 console.log("Step 1: You order something to eat.");
+//                 setTimeout(() => {
+//                     console.log("Step 2: Kitchen prepares your food.");
+//                     resolve("Food is ready!");
+//                 }, 2000);
+//                 // 2000 is 2 seconds delay
+//             });
+//         }
+//         function serveFood() {
+//             return new Promise((resolve) => {
+//                 setTimeout(() => {
+//                     console.log("Step 3: Waiter brings food to your table.");
+//                     resolve();
+//                 }, 1000); // 1 second delay
+//             });
+//         }
+//    // Using the Promises
+//         orderFood()
+//             .then((message) => {
+//                 // here message is "Food is ready!" 
+//                 console.log(message);
+//                 return serveFood();
+//             })
+//             .then(() => {
+//                 console.log("Enjoy your meal!");
+//             });
+    </script>
+
+    <!--I want to fetch data from an API with promises-->
+    <!--Step 1 : Create a function to fetch data from the API-->
+    <!--Step 2 : Calling fetch data-->
+
+    <script>
+        // function fetchData() {
+        //     return new Promise((resolve, reject) => {
+        //         let success = true; // Simulating success or failure
+        //         if (!success) {
+        //             reject("Error: Unable to fetch data from API.");
+        //             return;
+        //         }
+        //         console.log("Fetching data from API...");
+        //         setTimeout(() => {
+        //             const data = { id: 1, name: "John Doe" }; // Simulated API response
+        //             resolve(data);
+        //         }, 1500); // 1.5 seconds delay
+        //     });
+        // }
+        // // Calling fetchData function
+        // fetchData()
+        //     .then((data) => {
+        //         console.log("Data received from API:", data);
+        //   });
+    </script>
+
+    <!--I want to call below API using promise for handling data asynchronous-->
+    <!-- fetch('https://jsonplaceholder.typicode.com/todos/1')
+      .then(response => response.json())
+      .then(json => console.log(json)) -->
+    <!-- fetch and promise are used together to handle asynchronous operations in a more manageable way -->
+    <!-- fetch indirectly returns a promise that resolves to the Response object representing the response to the request -->
+    <!-- fetch is defined in ES6 as well as in modern browsers supporting typescript  -->
+    
+    <!--Show Data on console-->
+
+    <script>
+    //    function fetchTodo(){
+    //         return fetch('https://jsonplaceholder.typicode.com/todos')
+    //         .then(response => {
+    //             if (!response.ok) {
+    //                 throw new Error('Network response was not ok ' + response.statusText);
+    //             }
+    //             return response.json();
+    //        });
+    //     }
+
+    //     fetchTodo()
+    //         .then(todos => {
+    //             console.log('Todos fetched from API:', todos);
+    //     })
+    //     .catch(error => {
+    //       console.error('There was a problem with the fetch operation:', error);
+    //     });
+    </script>
+
+    <!--Show Data on web page-->
+
+    <h1>Todo List</h1>
+    <div id="todoContainer"></div>
+
+    <script>
+        function fetchAndDisplayTodos() {
+            fetch('https://jsonplaceholder.typicode.com/todos')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(todos => {
+                    const container = document.getElementById('todoContainer');
+                    const ul = document.createElement('ul');
+                    todos.forEach(todo => {
+                        const li = document.createElement('li');
+                        li.textContent = `${todo.id}: ${todo.title} (Completed: ${todo.completed})`;
+                        ul.appendChild(li);
+                    });
+                    container.appendChild(ul);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+        // Call the function to fetch and display todos
+        fetchAndDisplayTodos();
+    </script>
+
+    <!--One more way-->
+
+    <h2>Todo List</h2>
+    <div id="todoContainer"></div>
+
+    <script>
+        // function fetchTodo() {
+        //     return fetch('https://jsonplaceholder.typicode.com/todos')
+        //         .then(response => {
+        //             if (!response.ok) {
+        //                 throw new Error('Network response was not ok ' + response.statusText);
+        //             }
+        //             return response.json();
+        //         });
+        // }
+
+        // function displayTodos(todos) {
+        //     const container = document.getElementById('todoContainer');
+
+        //     if (!container) {
+        //         console.error('todoContainer element not found!');
+        //         return;
+        //     }
+
+        //     todos.forEach(todo => {
+        //         const todoItem = document.createElement('div');
+        //         todoItem.innerHTML = `
+        //             <div>
+        //                 <strong>ID:</strong> ${todo.id} | 
+        //                 <strong>User:</strong> ${todo.userId} | 
+        //                 <strong>Status:</strong> ${todo.completed ? 'Completed' : 'Pending'}
+        //             </div>
+        //             <div><strong>Title:</strong> ${todo.title}</div>
+        //             <hr>
+        //         `;
+        //         container.appendChild(todoItem);
+        //     });
+        // }
+
+        // // Wait for DOM to be fully loaded
+        // window.addEventListener('DOMContentLoaded', function () {
+        //     fetchTodo()
+        //         .then(todos => {
+        //             displayTodos(todos);
+        //         })
+        //         .catch(error => {
+        //             console.error('There was a problem with the fetch operation:', error);
+        //             const container = document.getElementById('todoContainer');
+        //             if (container) {
+        //                 container.innerHTML = '<p>Error loading todos!</p>';
+        //             }
+        //         });
+        // });
+    </script>
+
+<!-- In above demo Promise is used to handle asynchronous API calls so that we can manage the flow of data more effectively. -->
+<!-- Here we are using promises to handle asynchronous operations so that we can write cleaner and more manageable code. -->
+<!-- if we dont use promises, we would have to use callbacks, leading to "callback hell" ie  pyramid of doom -->
+<!-- Advantage of promise is that it allows us to chain multiple asynchronous operations together, making the code more readable and easier to maintain. -->
+
+</body>
+</html>

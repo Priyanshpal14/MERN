@@ -1,0 +1,120 @@
+<!-- Following are the standard features of ES 6 -->
+<!-- <ul>
+    <li>Arrow Functions</li>
+    <li>Classes</li>
+    <li>Template Literals</li>
+    <li>Destructuring Assignment</li>
+    <li>Default Parameters</li>
+    <li>Rest and Spread Operators</li>
+    <li>Promises</li>
+    <li>Modules</li>
+    </ul> -->
+<!--Expanding array or object via spred operatior into individual elements-->
+
+<!DOCTYPE html>
+<html lang="en">    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // // Example of using spread operator with arrays
+        // const arr1 = [1, 2, 3];
+        // const arr2 = [4, 5, 6];
+        // const combinedArr = [...arr1, ...arr2];
+        // console.log('Combined Array:', combinedArr); // Output: [1, 2, 3, 4, 5, 6]
+
+        // // Example of using spread operator with objects
+        // const person = { name: "Alice", age: 25 };
+        // const updatedPerson = { ...person, city: "New York" };
+        // console.log("Updated Person Object:", updatedPerson); // Output: { name: "Alice", age: 25, city: "New York" }
+    </script>
+    <!--You can try creating a student object and add ID to it -->
+    <script>
+    //     const student = { name: "Bob", grade: "A" };
+    //     const studentWithID = { ...student, id: 12345 };
+    //     console.log("Student with ID:", studentWithID); // Output: { name: "Bob", grade: "A", id: 12345 }
+    </script>
+
+    <!--In Js we have Arrow function i.e. lambda function : its purpose is to shorten the syntax of writing functions-->
+    <script>
+        // // Traditional function
+        // function add(a, b) {
+        //     return a + b;
+        // }
+        // console.log("Sum using traditional function:", add(2, 3)); // Output: 5
+
+        // // Arrow function
+        // const addArrow = (a, b) => a + b;
+        // console.log("Sum using arrow function:", addArrow(2, 3)); // Output: 5
+
+        // // Create a arrow function to multiply two numbers
+        // const multiply = (x, y) => x * y;
+        // console.log("Product using arrow function:", multiply(4, 5)); // Output: 20 
+    </script>
+    <!--In ES6 we can use OOP(Object-Oriented Programming concept more easily)-->
+    <script>
+        class Person {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            greet() {
+                console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+            }
+        }
+        // we can create objects using the class
+        const person1 = new Person("Charlie", 30);
+        person1.greet(); // Output: Hello, my name is Charlie and I am 30 years old.
+        // Display person1 details in dailog box
+        alert(`Person Details:\nName: ${person1.name}\nAge: ${person1.age}`);
+       
+        // / Create another object that inherits from Person class
+
+        const bob = new Person("Bob", 30);
+        bob.greet(); // Output: Hello, my name is Bob and I am 30 years old.
+        // Display details in dialog box
+        alert(`Person Details:\nName: ${bob.name}\nAge: ${bob.age}`);
+    </script>
+
+    <!-- In Js we have map and set collection via which we can store unique value-->
+    <!-- Map() is a collection of Keyvalue pairs ex username and password, Transaction-->
+    <!-- Set() is a collection of unique values ex  unique user IDs, unique product codes etc -->
+    
+    <script>
+        // Example of using Map
+        const myMap = new Map();
+        myMap.set("name", "Alice");
+        myMap.set("age", 25);
+        console.log("Map values:");
+        myMap.forEach((value, key) => {
+            console.log(`${key}: ${value}`);
+        });
+
+         // Example of using Set
+        const mySet = new Set();
+        mySet.add(1);
+        mySet.add(2);
+        mySet.add(2); // Duplicate value, will not be added
+        console.log("Set values:"); // Output: [1, 2]
+        // set.forEach((value) => {
+        //     console.log(`Set Value: ${value}`);
+        // });
+    </script>
+
+    <script>
+        // Map cities and countries
+        const cityCountryMap = new Map();   
+        cityCountryMap.set("New York", "USA");
+        cityCountryMap.set("Tokyo", "Japan");
+        cityCountryMap.set("Paris", "France");
+        console.log("City-Country Map:");
+        cityCountryMap.forEach((country, city) => {
+            console.log(`${city}: ${country}`);
+        });
+    </script>
+</html>
+<body>

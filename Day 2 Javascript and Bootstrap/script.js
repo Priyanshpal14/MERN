@@ -22,4 +22,4 @@ function displayCities() {
 // Call the function to display the cities
 displayCities();
 
-// End of script.js file
+// End of script.js file.
