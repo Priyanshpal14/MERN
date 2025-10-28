@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Forecast App</title>
+  <style>
+    /* 🌈 General page styling */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 🌤️ Weather container */
+    .weather-container {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .weather-container:hover {
+      transform: translateY(-5px);
+    }
+
+    /* 🔍 Input and button styling */
+    input {
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 70%;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #0078ff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      margin-left: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #005fcc;
+    }
+
+    /* 🌦️ Weather result box */
+    #weatherResult {
+      margin-top: 20px;
+      background: #f4f9ff;
+      border-radius: 12px;
+      padding: 20px;
+      color: #222;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      color: #0078ff;
+    }
+
+    p {
+      font-size: 1rem;
+      margin: 8px 0;
+    }
+
+    /* 📱 Responsive */
+    @media (max-width: 480px) {
+      input {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🌤️ Weather Forecast App</h1>
+
+  <div class="weather-container">
+    <input type="text" id="cityInput" placeholder="Enter city name" />
+    <button id="fetchWeatherBtn">Get Weather</button>
+    <div id="weatherResult"></div>
+  </div>
+
+  <script>
+    const API_KEY = "YOUR_API_KEY_HERE"; // Replace with your AccuWeather API key
+    const weatherResult = document.getElementById("weatherResult");
+
+    document.getElementById("fetchWeatherBtn").addEventListener("click", async () => {
+      const city = document.getElementById("cityInput").value.trim();
+      if (!city) {
+        weatherResult.innerHTML = "<p>Please enter a city name.</p>";
+        return;
+      }
+      await fetchWeatherData(city);
+    });
+
+    async function fetchWeatherData(city) {
+      try {
+        // Step 1: Get the location key for the city
+        const locationRes = await fetch(
+          `https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${API_KEY}&q=${city}`
+        );
+
+        if (!locationRes.ok) throw new Error("Unable to fetch location");
+
+        const locationData = await locationRes.json();
+        if (locationData.length === 0) throw new Error("City not found");
+
+        const locationKey = locationData[0].Key;
+        const locationName = locationData[0].LocalizedName;
+
+        // Step 2: Fetch the daily forecast
+        const forecastRes = await fetch(
+          `https://dataservice.accuweather.com/forecasts/v1/daily/1day/${locationKey}?apikey=${API_KEY}&metric=true`
+        );
+
+        if (!forecastRes.ok) throw new Error("Failed to fetch forecast");
+
+        const forecastData = await forecastRes.json();
+        displayWeatherData(locationName, forecastData);
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+        weatherResult.innerHTML = `<p>Error: ${error.message}</p>`;
+      }
+    }
+
+    function displayWeatherData(cityName, forecastData) {
+      const dailyForecast = forecastData.DailyForecasts[0];
+      const minTemp = dailyForecast.Temperature.Minimum.Value;
+      const maxTemp = dailyForecast.Temperature.Maximum.Value;
+      const weatherText = dailyForecast.Day.IconPhrase;
+
+      weatherResult.innerHTML = `
+        <h2>${cityName}</h2>
+        <p><strong>Condition:</strong> ${weatherText}</p>
+        <p><strong>Min Temp:</strong> ${minTemp}°C</p>
+        <p><strong>Max Temp:</strong> ${maxTemp}°C</p>
+      `;
+    }
+  </script>
+</body>
+</html>
