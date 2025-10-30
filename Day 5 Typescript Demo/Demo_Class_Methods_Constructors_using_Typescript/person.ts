@@ -1,3 +1,6 @@
+// This file will have person class and Student implementation with constructor and methods  
+// here we are using export before class so that this class can be imported in other files
+
 export class Person {
     readonly institute: string = "ABC Institute"; // readonly property
     private name: string;

@@ -1,3 +1,7 @@
+// main.ts file will help us in creating objects of Person and Student class and calling their methods
+
+//Step 1: importing person and student class from person.ts file
+
 import { Person, Student, Instructor } from "./person.js";
 
 const outputDiv = document.getElementById("output") as HTMLElement;
