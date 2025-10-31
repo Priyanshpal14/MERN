@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",               // ensures async/await compiles safely
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "rootDir": "./",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "downlevelIteration": true       // helps with async generators & for..of loops
+  },
+  "include": [
+    "Database_Connectivity.ts"
+  ]
+}

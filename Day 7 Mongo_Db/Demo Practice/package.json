@@ -1,0 +1,21 @@
+{
+  "name": "demo-practice",
+  "version": "1.0.0",
+  "description": "Demo MongoDB project with TypeScript",
+  "main": "dist/Database_Connectivity.js",
+  "scripts": {
+   "start": "ts-node Database_Connectivity.ts",
+  "start:js": "node dist/Database_Connectivity.js",
+  "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^6.3.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
